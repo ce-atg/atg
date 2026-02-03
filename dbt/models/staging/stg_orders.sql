@@ -1,0 +1,9 @@
+select
+    order_id,
+    customer_id,
+    product_id,
+    quantity,
+    order_date,
+    status,
+    total_amount
+from atg.public.orders
