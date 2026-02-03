@@ -44,3 +44,5 @@ Initial data loads would be performed as full refreshes to establish a complete 
 An intermediate layer was not introduced due to the simplicity and clarity of the source grain. This can be added if business logic becomes reusable or more complex.
 
 ## How to Review This Repo
+For a quick review, start with this README to understand the overall architecture, data model, and design decisions. Next, review the staging models (`stg_customers`, `stg_orders`, `stg_products`) to see how source data assumptions and data quality issues are handled. Finally, review the mart models (`fct_orders`, `dim_customers`, `dim_products`) to see how the analytical schema is implemented and prepared for downstream BI consumption.
+
