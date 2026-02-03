@@ -19,6 +19,8 @@
 ## Transformation Approach
 
 ## Data Quality & Governance
+- The Customers source contains exact duplicate rows for the same `customer_id`. These are treated as ingestion artifacts and are deduplicated by retaining a single row per `customer_id`.
+
 
 ## Scalability & Automation
 
