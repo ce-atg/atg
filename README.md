@@ -7,6 +7,14 @@
 ## Architecture Summary
 
 ## Analytical Schema
+- **Customers** represent unique business entities sourced from Salesforce Accounts.
+- **Orders** represent individual jobs/orders sourced from Salesforce Jobs.
+- **Products** represent sellable items sourced from NetSuite Pricebook.
+
+- The **primary fact table grain** is one row per order per product.
+- Customer-level attributes are modeled as a dimension and joined to facts via `customer_id`.
+- Product attributes are modeled as a dimension and joined to facts via `product_id`.
+
 
 ## Transformation Approach
 
