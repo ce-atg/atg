@@ -6,6 +6,12 @@
 
 ## Architecture Summary
 
+- Source data originates from Salesforce (Customers, Orders) and NetSuite (Products) and is ingested into Postgres via Fivetran pipelines.
+- Raw source tables are modeled in dbt using a staging layer to enforce source-level assumptions such as grain, deduplication, and column selection.
+- Analytics-ready fact and dimension tables are built directly from staging models using a star schema optimized for reporting and analysis.
+- The resulting models are designed to be consumed by Tableau, with clean join paths and clearly defined grains to prevent fan-out and ensure reliable metrics.
+
+
 ## Analytical Schema
 - **Customers** represent unique business entities sourced from Salesforce Accounts.
 - **Orders** represent individual jobs/orders sourced from Salesforce Jobs and are modeled at one row per `order_id`.
