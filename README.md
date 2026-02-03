@@ -4,7 +4,7 @@
 This repository demonstrates how I approach designing and communicating a scalable analytics data model from raw source data through analytics-ready outputs. The goal of the exercise is not just to transform data, but to show how architectural decisions, data quality handling, and tradeoffs are made intentionally and grounded in the characteristics of the source data. All artifacts in this repo are designed to reflect how I would structure and explain a real-world data engineering project.
 
 ## Problem Framing
-This repository demonstrates how I approach designing and communicating a scalable analytics data model from raw source data through analytics-ready outputs. The goal of the exercise is not just to transform data, but to show how architectural decisions, data quality handling, and tradeoffs are made intentionally and grounded in the characteristics of the source data. All artifacts in this repo are designed to reflect how I would structure and explain a real-world data engineering project.
+This assessment was approached as a design and communication exercise rather than a purely technical implementation. The provided datasets are treated as representative of real operational sources, with an emphasis on understanding source grain, identifying data quality issues, and designing a schema that can scale as complexity increases. Given the simplicity of the source data, the focus was placed on making deliberate architectural choices, documenting tradeoffs, and building a clean analytical foundation suitable for downstream BI consumption rather than over-engineering the solution.
 
 
 ## Architecture Summary
