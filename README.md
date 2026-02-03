@@ -9,7 +9,8 @@
 ## Analytical Schema
 - **Customers** represent unique business entities sourced from Salesforce Accounts.
 - **Orders** represent individual jobs/orders sourced from Salesforce Jobs and are modeled at one row per `order_id`.
-- **Products** represent sellable items sourced from NetSuite Pricebook.
+- **Products** represent sellable items sourced from NetSuite Pricebook and are modeled at one row per `product_id`.
+
 
 - The **primary fact table grain** is one row per `order_id`, with each order associated to a single product.
 - Customer-level attributes are modeled as a dimension and joined to facts via `customer_id`.
