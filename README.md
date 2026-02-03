@@ -14,6 +14,8 @@ This assessment was approached as a design and communication exercise rather tha
 - Analytics-ready fact and dimension tables are built directly from staging models using a star schema optimized for reporting and analysis.
 - The resulting models are designed to be consumed by Tableau, with clean join paths and clearly defined grains to prevent fan-out and ensure reliable metrics.
 
+![Data Flow Architecture](assets/dataflow.jpg)
+
 
 ## Analytical Schema
 - **Customers** represent unique business entities sourced from Salesforce Accounts.
