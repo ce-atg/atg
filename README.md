@@ -1,6 +1,7 @@
 # Data Engineering Assessment
 
 ## Overview
+This repository demonstrates how I approach designing and communicating a scalable analytics data model from raw source data through analytics-ready outputs. The goal of the exercise is not just to transform data, but to show how architectural decisions, data quality handling, and tradeoffs are made intentionally and grounded in the characteristics of the source data. All artifacts in this repo are designed to reflect how I would structure and explain a real-world data engineering project.
 
 ## Problem Framing
 
