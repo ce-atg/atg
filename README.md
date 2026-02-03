@@ -28,6 +28,9 @@ In production, data quality issues would be operationalized through automated ch
 
 ## Scalability & Automation
 
+Initial data loads would be performed as full refreshes to establish a complete baseline. Once stabilized, models would transition to incremental processing using timestamp fields (such as `updated_at`) to efficiently process new or changed records. Pipeline health would be monitored via model execution status and data freshness checks, with alerts configured for failures or stale data. Schema evolution would be managed by introducing new fields in the staging layer first and propagating changes downstream in a controlled manner to minimize breaking changes.
+
+
 ## Tradeoffs & Design Decisions
 An intermediate layer was not introduced due to the simplicity and clarity of the source grain. This can be added if business logic becomes reusable or more complex.
 
