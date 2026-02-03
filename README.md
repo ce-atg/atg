@@ -23,6 +23,9 @@ All raw source tables (customers, orders, and products) are first modeled in a s
 ## Data Quality & Governance
 The Customers source contains exact duplicate rows for the same `customer_id`. These are treated as ingestion artifacts and are deduplicated in the staging layer (`stg_customers`) to retain a single row per customer_id.
 
+In production, data quality issues would be operationalized through automated checks and alerts. Duplicate detection and enforcement of correct grain occur in the staging layer. Critical null checks (such as missing primary or foreign keys and required dates) would be implemented as tests and configured to alert on failure. Late-arriving or updated records would be handled via incremental processing based on timestamp fields (e.g., `updated_at`) so downstream models automatically reconcile changes without requiring full reloads.
+
+
 ## Scalability & Automation
 
 ## Tradeoffs & Design Decisions
