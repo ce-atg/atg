@@ -17,6 +17,8 @@
 - Product-level attributes are modeled as a dimension and joined to facts via `product_id`.
 
 ## Transformation Approach
+All raw source tables (customers, orders, and products) are first modeled in a staging layer. The staging models enforce source-level assumptions such as grain, deduplication (where required), and basic column selection, providing a clean and consistent foundation for downstream fact and dimension models.
+
 
 ## Data Quality & Governance
 The Customers source contains exact duplicate rows for the same `customer_id`. These are treated as ingestion artifacts and are deduplicated in the staging layer (`stg_customers`) to retain a single row per customer_id.
