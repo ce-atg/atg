@@ -26,5 +26,6 @@ The Customers source contains exact duplicate rows for the same `customer_id`. T
 ## Scalability & Automation
 
 ## Tradeoffs & Design Decisions
+An intermediate layer was not introduced due to the simplicity and clarity of the source grain. This can be added if business logic becomes reusable or more complex.
 
 ## How to Review This Repo
