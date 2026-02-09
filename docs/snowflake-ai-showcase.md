@@ -109,3 +109,44 @@ FROM orders
 WHERE total_amount IS NOT NULL
 GROUP BY status;
 ```
+**Results:**
+
+| Status | Order Count | Total Revenue | AI-Generated Insight |
+|--------|-------------|---------------|---------------------|
+| Completed | 10,455 | $6,509,333.56 | "The company has achieved a significant milestone with 10,455 completed orders, totaling $6,509,333.56 in revenue, indicating a substantial increase in sales and operational efficiency." |
+| Pending | 2,918 | $1,767,563.17 | "The company has a significant backlog of 2,918 pending orders totaling $1,767,563.17, indicating a substantial volume of work that needs to be fulfilled in order to meet customer demand and potentially impact production and fulfillment timelines." |
+| Cancelled | 1,477 | $945,536.61 | "The high number of cancelled orders, totaling $945,536.61, indicates a significant disruption to business operations, potentially resulting in lost revenue, wasted resources, and a need for reassessment of sales strategies and inventory management." |
+
+**Key Insights:**
+- Completed orders show strong operational efficiency
+- Pending orders represent fulfillment backlog requiring attention  
+- Cancelled orders ($945K) signal potential sales process issues
+
+---
+
+### Product Category Performance Analysis
+
+**Query:**
+```sql
+SELECT 
+    p.category,
+    COUNT(DISTINCT o.order_id) as order_count,
+    ROUND(SUM(o.total_amount), 2) as total_revenue,
+    ROUND(AVG(o.total_amount), 2) as avg_order_value,
+    
+    SNOWFLAKE.CORTEX.COMPLETE(
+        'llama3.1-8b',
+        CONCAT(
+            'The ', p.category, ' category had ', COUNT(DISTINCT o.order_id)::STRING, 
+            ' orders generating $', ROUND(SUM(o.total_amount), 2)::STRING, 
+            ' in revenue, with an average order value of $', ROUND(AVG(o.total_amount), 2)::STRING,
+            '. Write one insight about this category performance in one sentence.'
+        )
+    ) as ai_insight
+    
+FROM orders o
+JOIN products p ON o.product_id = p.product_id
+WHERE o.total_amount IS NOT NULL
+GROUP BY p.category
+ORDER BY total_revenue DESC;
+```
