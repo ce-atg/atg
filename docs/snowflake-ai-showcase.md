@@ -61,3 +61,51 @@ $$
   )
 $$;
 ```
+
+**Example Usage:**
+```sql
+-- Question: "How many orders have null values in total_amount?"
+SELECT answer_data_question('How many orders have null values in total_amount?');
+-- Returns: SELECT COUNT(*) FROM ORDERS WHERE total_amount IS NULL;
+
+-- Question: "What is the total revenue by product category?"
+SELECT answer_data_question('What is the total revenue by product category?');
+-- Returns: SELECT p.category, SUM(o.total_amount) as revenue
+--          FROM ORDERS o JOIN PRODUCTS p ON o.product_id = p.product_id
+--          GROUP BY p.category;
+```
+
+**Business Value:**
+- Reduces dependency on data analysts for ad-hoc queries
+- Enables self-service analytics for business users
+- Provides transparency (users see the SQL before execution)
+- Educational tool for learning SQL patterns
+
+---
+
+## Use Case 2: Automated Business Insights
+
+### Order Status Analysis
+
+Automatically generate executive summaries from order pipeline metrics.
+
+**Query:**
+```sql
+SELECT 
+    status,
+    COUNT(*) as order_count,
+    SUM(total_amount) as total_revenue,
+    
+    SNOWFLAKE.CORTEX.COMPLETE(
+        'llama3.1-8b',
+        CONCAT(
+            'We have ', COUNT(*)::STRING, ' ', status, ' orders worth $', 
+            SUM(total_amount)::STRING, 
+            '. Write one sentence about what this means for business operations.'
+        )
+    ) as business_insight
+    
+FROM orders
+WHERE total_amount IS NOT NULL
+GROUP BY status;
+```
