@@ -18,14 +18,26 @@ This assessment was approached as a design and communication exercise rather tha
 
 
 ## Analytical Schema
-- **Customers** represent unique business entities sourced from Salesforce Accounts.
-- **Orders** represent individual jobs/orders sourced from Salesforce Jobs and are modeled at one row per `order_id`.
-- **Products** represent sellable items sourced from NetSuite Pricebook and are modeled at one row per `product_id`.
 
+**Fact Table: fct_orders** (one row per `order_id`)
+- `order_id` (VARCHAR), `customer_id` (VARCHAR), `product_id` (VARCHAR)
+- `quantity` (INTEGER), `order_date` (TIMESTAMP), `status` (VARCHAR), `total_amount` (DECIMAL)
+- Grain: One order per row, each order associated to a single product
 
-- The **primary fact table grain** is one row per `order_id`, with each order associated to a single product.
-- Customer-level attributes are modeled as a dimension and joined to facts via `customer_id`.
-- Product-level attributes are modeled as a dimension and joined to facts via `product_id`.
+**Dimension: dim_customers** (one row per `customer_id`)
+- `customer_id` (VARCHAR), `first_name` (VARCHAR), `last_name` (VARCHAR), `email` (VARCHAR)
+- `city` (VARCHAR), `state` (VARCHAR), `country` (VARCHAR)
+- `created_at` (TIMESTAMP), `updated_at` (TIMESTAMP)
+- Source: Salesforce Accounts (deduplicated in staging)
+
+**Dimension: dim_products** (one row per `product_id`)
+- `product_id` (VARCHAR), `product_name` (VARCHAR), `category` (VARCHAR), `price` (DECIMAL)
+- `created_at` (TIMESTAMP), `updated_at` (TIMESTAMP)
+- Source: NetSuite Pricebook
+
+**Relationships:**
+- `fct_orders.customer_id` → `dim_customers.customer_id`
+- `fct_orders.product_id` → `dim_products.product_id`
 
 ## Transformation Approach
 All raw source tables (customers, orders, and products) are first modeled in a staging layer. The staging models enforce source-level assumptions such as grain, deduplication (where required), and basic column selection, providing a clean and consistent foundation for downstream fact and dimension models.
